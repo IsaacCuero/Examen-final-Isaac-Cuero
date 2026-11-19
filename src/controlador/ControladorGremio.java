@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import modelo.Aventurero;
 import modelo.Clerigo;
@@ -12,7 +13,7 @@ import vista.VentanaGremio;
 
 public final class ControladorGremio {
     private final List<Aventurero> aventureros = new ArrayList<>();
-    public void conectar(VentanaGremio vista) {
+    public void conectar(VentanaGremio vista, Function<List<Aventurero>, String> reportes) {
         vista.alCambiarClase(e -> vista.pedirRasgo(etiquetaRasgo(vista.clase())));
         vista.alRegistrar(e -> {
             try {
@@ -27,6 +28,7 @@ public final class ControladorGremio {
             }
         });
         vista.alSimular(e -> vista.mostrarResultado(simularCombate()));
+        vista.alPedirReportes(e -> vista.mostrarResultado(reportes.apply(List.copyOf(aventureros))));
         vista.pedirRasgo(etiquetaRasgo(vista.clase()));
         vista.mostrarGremio(listado());
     }
