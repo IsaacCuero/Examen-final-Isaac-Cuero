@@ -17,7 +17,8 @@ public final class Main {
         SwingUtilities.invokeLater(() -> {
             VentanaGremio vista = new VentanaGremio();
             ControladorGremio controlador = new ControladorGremio();
-            controlador.conectar(vista, Main::reportePorClase);
+            controlador.conectar(vista, grupo ->
+                    reportePorClase(grupo) + "\n\n" + reporteVitalidad(grupo));
             vista.setVisible(true);
         });
     }
@@ -31,5 +32,10 @@ public final class Main {
                 .map(e -> e.getKey() + ": " + e.getValue())
                 .collect(Collectors.joining("\n"));
         return "Aventureros por clase\n" + (detalle.isEmpty() ? "Gremio vacío." : detalle);
+    }
+
+    public static String reporteVitalidad(List<Aventurero> grupo) {
+        long total = grupo.stream().mapToLong(Aventurero::getPuntosVida).sum();
+        return "Vitalidad del gremio\nPuntos de vida totales: " + total;
     }
 }
