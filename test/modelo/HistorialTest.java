@@ -30,4 +30,10 @@ public class HistorialTest {
         assertEquals(List.of("REGISTRO | " + monje.ficha(" | "), "COMBATE", monje.actuarEnCombate()),
                 Files.readAllLines(ruta));
     }
+
+    @Test
+    public void comunicaElFalloSiElDestinoEsUnaCarpeta() {
+        Historial historial = new Historial(carpeta.getRoot().toPath());
+        assertThrows(IOException.class, () -> historial.anotarCombate("sin participantes"));
+    }
 }
