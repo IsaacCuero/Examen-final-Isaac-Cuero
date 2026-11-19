@@ -1,0 +1,9 @@
+REGISTRO | Bruna (Guerrero) | Nivel 4 | 32 PV | Armadura pesada: sí
+REGISTRO | Iria (Mago) | Nivel 3 | 18 PV | Espacios de conjuro: 2
+REGISTRO | Sol (Clérigo) | Nivel 2 | 21 PV | Dios venerado: Selûne
+REGISTRO | Tao (Monje) | Nivel 3 | 17 PV | Puntos de Ki: 4
+COMBATE
+El Guerrero Bruna usa Oleada de Acción para realizar múltiples ataques físicos continuos.
+El Mago Iria gasta un espacio de conjuro para lanzar una poderosa Bola de Fuego.
+El Clérigo Sol usa Canalizar Divinidad para curar a sus aliados y expulsar muertos vivientes.
+El Monje Tao gasta puntos de Ki para ejecutar una Ráfaga de Golpes y un Ataque Aturdidor.
