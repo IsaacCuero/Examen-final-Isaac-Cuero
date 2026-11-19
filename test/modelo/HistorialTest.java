@@ -20,4 +20,14 @@ public class HistorialTest {
         assertEquals(List.of("REGISTRO | Álvaro (Clérigo) | Nivel 4 | 30 PV | Dios venerado: Selûne"),
                 Files.readAllLines(ruta));
     }
+
+    @Test
+    public void otraSesionAnexaElCombateSinPerderElRegistro() throws IOException {
+        Path ruta = carpeta.getRoot().toPath().resolve("registro_gremio.txt");
+        Aventurero monje = new Monje("Tao", 3, 17, 4);
+        new Historial(ruta).anotarRegistro(monje);
+        new Historial(ruta).anotarCombate(monje.actuarEnCombate());
+        assertEquals(List.of("REGISTRO | " + monje.ficha(" | "), "COMBATE", monje.actuarEnCombate()),
+                Files.readAllLines(ruta));
+    }
 }
