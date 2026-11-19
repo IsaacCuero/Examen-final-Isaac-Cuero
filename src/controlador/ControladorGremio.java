@@ -36,7 +36,13 @@ public final class ControladorGremio {
                 vista.mostrarResultado("No se guardó el registro. Revisa registro_gremio.txt.\n" + ex.getMessage());
             }
         });
-        vista.alSimular(e -> vista.mostrarResultado(simularCombate()));
+        vista.alSimular(e -> {
+            try {
+                vista.mostrarResultado(simularCombate());
+            } catch (IOException ex) {
+                vista.mostrarResultado("No se guardó el combate. Revisa registro_gremio.txt.\n" + ex.getMessage());
+            }
+        });
         vista.alPedirReportes(e -> vista.mostrarResultado(reportes.apply(List.copyOf(aventureros))));
         vista.pedirRasgo(etiquetaRasgo(vista.clase()));
         vista.mostrarGremio(listado());
@@ -55,10 +61,11 @@ public final class ControladorGremio {
                 .collect(Collectors.joining("\n"));
     }
 
-    public String simularCombate() {
+    public String simularCombate() throws IOException {
         String acciones = aventureros.isEmpty() ? "No hay aventureros para combatir."
                 : aventureros.stream().map(Aventurero::actuarEnCombate)
                         .collect(Collectors.joining("\n"));
+        historial.anotarCombate(acciones);
         return acciones;
     }
 
