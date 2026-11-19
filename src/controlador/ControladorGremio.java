@@ -26,6 +26,7 @@ public final class ControladorGremio {
 
             }
         });
+        vista.alSimular(e -> vista.mostrarResultado(simularCombate()));
         vista.pedirRasgo(etiquetaRasgo(vista.clase()));
         vista.mostrarGremio(listado());
     }
@@ -40,6 +41,13 @@ public final class ControladorGremio {
         }
         return aventureros.stream().map(Aventurero::toString)
                 .collect(Collectors.joining("\n"));
+    }
+
+    public String simularCombate() {
+        String acciones = aventureros.isEmpty() ? "No hay aventureros para combatir."
+                : aventureros.stream().map(Aventurero::actuarEnCombate)
+                        .collect(Collectors.joining("\n"));
+        return acciones;
     }
 
     private static String etiquetaRasgo(String clase) {
