@@ -1,12 +1,14 @@
 package aplicacion;
 
 import controlador.ControladorGremio;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import javax.swing.SwingUtilities;
 import modelo.Aventurero;
+import modelo.Historial;
 import vista.VentanaGremio;
 
 public final class Main {
@@ -16,7 +18,8 @@ public final class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             VentanaGremio vista = new VentanaGremio();
-            ControladorGremio controlador = new ControladorGremio();
+            Historial historial = new Historial(Path.of("registro_gremio.txt"));
+            ControladorGremio controlador = new ControladorGremio(historial);
             controlador.conectar(vista, grupo ->
                     reportePorClase(grupo) + "\n\n" + reporteVitalidad(grupo));
             vista.setVisible(true);

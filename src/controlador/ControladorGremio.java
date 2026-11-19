@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -7,12 +8,19 @@ import java.util.stream.Collectors;
 import modelo.Aventurero;
 import modelo.Clerigo;
 import modelo.Guerrero;
+import modelo.Historial;
 import modelo.Mago;
 import modelo.Monje;
 import vista.VentanaGremio;
 
 public final class ControladorGremio {
     private final List<Aventurero> aventureros = new ArrayList<>();
+    private final Historial historial;
+
+    public ControladorGremio(Historial historial) {
+        this.historial = historial;
+    }
+
     public void conectar(VentanaGremio vista, Function<List<Aventurero>, String> reportes) {
         vista.alCambiarClase(e -> vista.pedirRasgo(etiquetaRasgo(vista.clase())));
         vista.alRegistrar(e -> {
@@ -24,7 +32,8 @@ public final class ControladorGremio {
                 vista.mostrarResultado("Se registró a " + nuevo.getNombre() + ".");
             } catch (IllegalArgumentException ex) {
                 vista.mostrarResultado(ex.getMessage());
-
+            } catch (IOException ex) {
+                vista.mostrarResultado("No se guardó el registro. Revisa registro_gremio.txt.\n" + ex.getMessage());
             }
         });
         vista.alSimular(e -> vista.mostrarResultado(simularCombate()));
@@ -33,7 +42,8 @@ public final class ControladorGremio {
         vista.mostrarGremio(listado());
     }
 
-    public void registrar(Aventurero nuevo) {
+    public void registrar(Aventurero nuevo) throws IOException {
+        historial.anotarRegistro(nuevo);
         aventureros.add(nuevo);
     }
 
