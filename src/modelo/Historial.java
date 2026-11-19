@@ -17,6 +17,10 @@ public final class Historial {
         anexar("REGISTRO | " + aventurero.ficha(" | "));
     }
 
+    public void anotarCombate(String acciones) throws IOException {
+        anexar("COMBATE" + System.lineSeparator() + acciones);
+    }
+
     private void anexar(String texto) throws IOException {
         Files.writeString(archivo, texto + System.lineSeparator(), StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
